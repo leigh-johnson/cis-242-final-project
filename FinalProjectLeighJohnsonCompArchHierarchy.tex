@@ -135,7 +135,9 @@ Two other gates, \textbf{NAND} and \textbf{NOR}, produce complementary output to
 
 \subsubsection{Sequential Circuit}
 
-The output of \textbf{Seqential Circuits} varies depending on the internal state of the circuit. The state changes are governed by a textbf{Clock}, which produces a regular periodic electrical wave. Sequential circuits typically incorporate a \textbf{Feedback Loop}, which loops output back to input terminals.
+The output of \textbf{Seqential Circuits} varies depending on the internal state (memory) of the circuit. The state changes are governed by a textbf{Clock}, which produces a regular periodic electrical wave. Sequential circuits typically incorporate a \textbf{Feedback Loop}, which loops output back to input terminals.
+
+A \textbf{Finite State Machine (FSM)} depicts the relationship between the state of \textbf{Flip-Flop circuity} and the system clock. FSMs can only be in one state at a time.
 
 \subsection{Microcode}
 
@@ -143,13 +145,48 @@ The output of \textbf{Seqential Circuits} varies depending on the internal state
 
 \subsection{Hardware Components of a Computer}
 
+
 \subsubsection{Central Processing Unit (CPU)}
+
+The \textbf{Central Processing Unit (CPU)} is responsible for fetching program instructions, decoding each instruction, and executing the decoded operations. These steps are known as the \textbf{Fetch-Decode-Execute Cycle} or \textbf{Instruction Cycle}.
 
 \subsubsection{Memory}
 
+Memory refers to the devices that store data temporarily or permanently.
+
+\begin{itemize}
+    \item \textbf{Random Access Memory (RAM)} - a volatile (temporary) form of memory.
+    \item \textbf{Read-Only Memory (ROM)} - a nonvolatile (permanent) form of memory that is read-only.
+    \item \textbf{Flash Memory (NAND, NOR)} - a non-volatile (permanent) form of memory that can be erased and rewritten.
+\end{itemize}
+
 \subsubsection{Storage}
 
+A storage device is used to store data. There are many different kinds of storage mediums available for computers:
+
+\begin{itemize}
+    \item \textbf{Magnetic Tape}
+    \item \textbf{Optical Disks}
+    \item \textbf{Hard Disk Drives (HDD)}
+    \item \textbf{Solid-State Drives (SSD)}
+\end{itemize}
+
 \subsubsection{Bus (Communication)}
+
+\subsubsection{MARIE Reference Architecture}
+The CPU in the MARIE reference architecture (an example of \textbf{Von Neumann architecture}) consists of the following components:
+
+\begin{itemize}
+    \item \textbf{Arithmetic Logic Unit (ALU)} - performs logic operations (e.g., less-than or equals comparisons) and arithmetic (add, subtract).
+    \item \textbf{Accumulator (AC)} - a specialized register used for storing the output of the last executed operation.
+    \item \textbf{Input / Output Registers} - specialized registers used to store user input and program output.
+    \item \textbf{Memory Buffer Register (MBR)} - specialized register used to store data being transferred to/from main memory.
+    \item \textbf{Memory Address Register (MAR)} - specialized register used to store the memory address of data to be fetched from main memory.
+    \item \textbf{Control Unit (CU)} - responsible for sequencing operations, manipulating the \textbf{Program Counter}.
+    \item \textbf{Program Counter (PC)} - specialized register used to keep track of the next instruction to be executed.
+    \item \textbf{Instruction Register (IR)} - specialized register used to hold the instruction currently being decoded/executed.
+    \item \textbf{Main Memory} - also known as the datapath. Stores program data.
+\end{itemize}
 
 
 \section{Machine Code}
