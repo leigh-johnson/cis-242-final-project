@@ -1,0 +1,179 @@
+\documentclass[pdftex,10pt]{article}
+\usepackage{multicol}
+\usepackage[ampersand]{easylist}
+\usepackage{tikz}
+\usepackage{tabularx}
+\usetikzlibrary{intersections}
+\usetikzlibrary{decorations.pathreplacing}
+
+\title{Hierarchy of Computer Architecture \\ Final Project, CIS-242-AA-CRN94413}
+\author{Leigh Johnson \\ johnsonl6@my.smccd.edu \\ Cañada College}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\section{Hierarchy of Computer Architecture}
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[thick]
+
+        \coordinate (A) at (-5,0) {};
+        \coordinate (B) at ( 5,0) {};
+        \coordinate (C) at (0,9) {};
+        \draw[name path=AC] (A) -- (C);
+        \draw[name path=BC] (B) -- (C);
+        \foreach \y/\A in {
+        0/{Digital Logic\\ Circuits, Gates, Inverters},
+        1/{Control\\ Microcode, Hardwired},
+        2/{Machine Code\\ Instruction Set Architecture},
+        3/{Operating System\\Kernel, UEFI/BIOS, Bootloader},
+        4/{Assembly Language\\Intermediate Representation (IR)},
+        5/{High-level Languages\\C++, Java, Fortran},
+        6/User\\Executable\\Programs} {
+        \path[name path=horiz] (A|-0,\y) -- (B|-0,\y);
+        \draw[name intersections={of=AC and horiz,by=P},
+            name intersections={of=BC and horiz,by=Q}] (P) -- (Q)
+        node[midway,above,align=center,text width=
+            \dimexpr(7em-\y em)*7\relax] {\A};
+        }
+
+        \draw [decorate,
+            decoration = {brace}] (-5.5,0) --  (-5.5,2.5)
+        node[pos=0.75,left=10pt,black]{$Hardware$};
+        \draw [decorate,
+            decoration = {brace}] (-5.5,2.9) --  (-5.5,9)
+        node[pos=0.75,left=10pt,black]{$Software$};
+    \end{tikzpicture}
+    \caption{\bf{Abstract Levels of a Computer System}}
+\end{figure}
+
+Computer architecture hierarchy refers to the structured organization of components within a computer system. This hierarchy typically starts with the smallest, simplest elements like transistors and builds up to more complex structures such as logic gates, microprocessors, and finally an entire computer operating system capable of running user programs. The components become more integrated and complex at each level of this hierarchy.
+
+\section{Digital Logic}
+
+The \textbf{Digital Logic} layer includes the physical components of the computer, like circuits, gates, and wires. Logic gates are the fundamental building block and implement operations using \textbf{Boolean Logic}.
+
+\subsection{Boolean Algebra}
+
+Named after mathematician George Boole, Boolean laws and identities can be used to reduce/simplify a logical statement. In the context of computer science, simpler circuits are preferred because they consume fewer resources (energy, money) and are simpler to build.
+
+\begin{table}[htbp]
+    \abovedisplayskip=-5pt
+    \belowdisplayskip=-5pt
+    \centering
+    \begin{tabularx}{\textwidth}{| X | X | X |}
+        \hline
+        Name                 & AND form              & OR form               \\ \hline
+        \[Identity\]         & \[1x = 1\]            & \[0+x = x\]           \\ \hline
+        \[Null\]             & \[0x = 0\]            & \[1 +x =1\]           \\ \hline
+        \[Idempotent\]       & \[xx = x\]            & \[x + x = x\]         \\ \hline
+        \[Inverse\]          & \[xx' = 0\]           & \[x + x' = 1\]        \\ \hline
+        \[Null\]             & \[0x = 0\]            & \[1 +x =1\]           \\ \hline
+        \[Commutative\]      & \[xy = yx\]           & \[x+y = y + x\]       \\ \hline
+        \[Associative\]      & \[(xy)z = x(yz)\]     & \[(x+y)+z = x+(y+z)\] \\ \hline
+        \[Distributive\]     & \[x+yz = (x+y)(x+z)\] & \[x(y+z) = xy+xz\]    \\ \hline
+        \[Absorption\]       & \[x(x+y) = x\]        & \[x + xy = x\]        \\ \hline
+        \[DeMorgan's\]       & \[(xy)' = x'+y'\]     & \[(x+y)' = x'y'\]     \\ \hline
+        \[DoubleComplement\] & \[(x)'' = x\]         & \[(x)'' = x\]         \\ \hline
+    \end{tabularx}
+    \caption{Boolean Algebra Identities and Laws}
+
+\end{table}
+
+\subsection{Truth Tables}
+
+Also known as \textbf{Karnaugh Maps (K-Maps)}, a \textbf{Truth Table} can be represented in two formats:
+\begin{itemize}
+    \item \textbf{Sum-of-Products form} - collection of ANDed variables (product terms) that are ORed together (sum of all product terms)
+    \item \textbf{Product-of-Sums form} - collection of ORed variables (sum terms) that are ANDed together (product all summed terms)
+\end{itemize}
+
+
+Consider the following example of a function \textit{F(x,y,z) = x'yz + xy'z + xyz}, which outputs true (1) if the majority of inputs are true:
+
+\begin{table}[htbp]
+    \abovedisplayskip=-5pt
+    \belowdisplayskip=-5pt
+    \centering
+    \begin{tabularx}{\textwidth}{| X | X | X | X |}
+        \hline
+        x & y & z & F(x,y,z) \\ \hline
+        0 & 0 & 0 & 0        \\ \hline
+        0 & 0 & 1 & 0        \\ \hline
+        0 & 1 & 0 & 0        \\ \hline
+        1 & 0 & 0 & 0        \\ \hline
+        1 & 0 & 1 & 1        \\ \hline
+        1 & 1 & 0 & 1        \\ \hline
+        1 & 1 & 1 & 1        \\ \hline
+    \end{tabularx}
+    \caption{Truth Table representation for a majority function:\\ \textit{F(x,y,z) = x'yz + xy'z + xyz}.}
+
+\end{table}
+
+
+\subsection{Logic Gates}
+
+Using \textbf{Boolean Algebra}, we can construct the next basic building block of digital circuitry: a \textbf{Logic Gate}. The most basic logic gates are:
+\begin{itemize}
+    \item \textbf{AND Gate} - true (1) if both inputs are true, otherwise false (0).
+    \item \textbf{OR Gate} - true (1) if either input is true, false (0) if both inputs are false.
+    \item \textbf{NOT Gate} - true (1) if the input is false (0), false if the input is true. Also known as an \textbf{Inverter}
+\end{itemize}
+
+Two other gates, \textbf{NAND} and \textbf{NOR}, produce complementary output to AND and OR gates. The NAND gate is called a \textbf{universal gate} because any electronic circuit can be constructed using only NAND gates.
+
+\section{Hardware Control}
+
+\textbf{Logic Gates} are combined to build different types of circuitry and modules. The simplest units are \textbf{Integrated Circuits (ICs)}, a chip consisting of the necessary transistors, resistors, and capacitors to implement various gates.
+
+\subsection{Hardwired Control}
+\subsubsection{Combinational Circuit}
+
+\textbf{Combinational Circuits} use a stateless circuit design, which accepts input values and (almost) instantly produces an output. One of the simplest examples is the \textbf{Half Adder}, which outputs the sum of two bits.
+
+\subsubsection{Sequential Circuit}
+
+The output of \textbf{Seqential Circuits} varies depending on the internal state of the circuit. The state changes are governed by a textbf{Clock}, which produces a regular periodic electrical wave. Sequential circuits typically incorporate a \textbf{Feedback Loop}, which loops output back to input terminals.
+
+\subsection{Microcode}
+
+\textbf{Microcode} is a characteristic of \textbf{Complex Instruction Set Computers (CISC)}, which are a layer of low-level instructions needed by higher-level machine code instructions. Machine code is an intermediary between the machine language and the hardware, allowing more flexible control of the processor's operations. A \textbf{Microprogram} is a sequence of microcode instructions.
+
+\subsection{Hardware Components of a Computer}
+
+\subsubsection{Central Processing Unit (CPU)}
+
+\subsubsection{Memory}
+
+\subsubsection{Storage}
+
+\subsubsection{Bus (Communication)}
+
+
+\section{Machine Code}
+\subsection{Instruction Set Architecture(ISA)}
+
+An Instruction Set Architecture is an agreed-upon interface between \em{software} running on a machine and the \em{hardware} that executes it.
+
+
+\subsubsection{Complex Instruction Set Architecture (CISC)}
+\subsubsection{Reduced Instruction Set Architecture (RISC)}
+
+\section{Operating System}
+
+\subsection{Firmware Interfaces}
+
+\subsubsection{BIOS}
+\subsubsection{UEFI}
+
+\subsection{Kernel}
+
+\section{Assembly Language}
+
+\section{High-level Language}
+
+\section{Userland}
+
+\end{document}
