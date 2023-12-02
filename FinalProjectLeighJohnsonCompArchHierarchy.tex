@@ -3,6 +3,7 @@
 \usepackage[ampersand]{easylist}
 \usepackage{tikz}
 \usepackage{tabularx}
+\usepackage{float}
 \usetikzlibrary{intersections}
 \usetikzlibrary{decorations.pathreplacing}
 
@@ -207,6 +208,7 @@ The ISA provides the specification for:
     \item Supported data types and operations (e.g., IEEE 754 floating point arithmetic)
     \item Endianness (e.g. Big Endian or Little Endian)
     \item Branch evaluation
+    \item Instruction Format
 \end{itemize}
 
 \subsection{Instruction Formats}
@@ -214,16 +216,11 @@ The ISA provides the specification for:
 \begin{itemize}
     \item \textbf{Stack Architecture} - instructions and operands are popped off the stack. A stack architecture uses \textbf{postfix notation} (also known as Polish notation) to express operations.
     \item \textbf{Accumulator Architecture} - one operand of a binary operation is stored in the accumulator, one in memory.
-    \item \textbf{General Purpose Register (GPR) Architecture} - operands are stored in general-purpose registers. Reduces memory bus traffic compared to Accumulator architecture.
+    \item \textbf{General Purpose Register (GPR) Architecture} - operands stored in general-purpose registers.
 \end{itemize}
 
-\subsubsection{Reduced Instruction Set Architecture (RISC) vs. Complex Instruction Set Architecture (CISC)}
-
-Modern ISAs often incorporate a mix of RISC and CISC design principles, so the line between these designs is starting to blur.
-
-\begin{table}[h]
-    \abovedisplayskip=-5pt
-    \belowdisplayskip=-5pt
+\subsection{Reduced Instruction Set Architecture (RISC) vs. Complex Instruction Set Architecture (CISC)}
+\begin{table}[H]
     \centering
     \begin{tabularx}{\textwidth}{| X | X |}
         \hline
@@ -246,17 +243,39 @@ Modern ISAs often incorporate a mix of RISC and CISC design principles, so the l
 
 An operating system (OS) is the intermediary system software between users and the computer hardware. The OS facilitates the execution of application programs and efficiently manages hardware resources like CPU, memory, and I/O systems.
 
-\subsection{Firmware Interfaces}
+Operating System code is often referred to as \textbf{the Kernel}, especially to delineate between applications that run in \textbf{Kernel Space} vs. \textbf{User Space}
+
+\subsection{Boot Firmware}
+
+The following firmware is used during the computer boot stage. This firmware is responsible for initializing and testing system hardware components and loading the Bootloader or operating system.
 
 \subsubsection{BIOS}
+
+Basic Input/Output System (BIOS) is a legacy firmware interface initially developed by IBM. The UEFI standard has replaced BIOS, however the term "BIOS" is often used to refer to boot firmware in a generic sense.
+
 \subsubsection{UEFI}
 
-\subsection{Kernel}
+The Unified Extensible Firmware Interface (UEFI) is a specification that defines a software interface between an operating system and platform firmware, replacing the legacy Basic Input/Output System (BIOS) firmware interface. UEFI provides graphical menus, secure boot, and network capabilities before loading an operating system.
 
 \section{Assembly Language}
 
+Assembly is a human-readable language that compiles to \textbf{Machine Code}. Higher-order programming languages in the next section are compiled into Assembly Code or an \textbf{Intermediate Representation (IR)}.
+
+\textbf{Intermediate Representations (IRs)} is an internal stage used by a compiler (e.g., LLVM) or virtual machine (e.g., Java Virtual Machine), which allows for optimizations and language/machine-agnostic conversion between source code and machine code.
+
 \section{High-level Language}
 
-\section{Userland}
+A high-level language abstracts the implementation details of the machine, hardware, and instruction set. Examples of high-level languages include:
+
+\begin{itemize}
+    \item C/C++
+    \item Rust
+    \item Java
+    \item Python
+\end{itemize}
+
+\section{User Space}
+
+When a user writes and executes a program, this program typically runs in "user space" or "userland." This delineates between system applications that run in "kernel space" or "kernel land" and user programs.
 
 \end{document}
