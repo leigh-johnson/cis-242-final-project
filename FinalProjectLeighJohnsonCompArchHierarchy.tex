@@ -165,10 +165,10 @@ Memory refers to the devices that store data temporarily or permanently.
 A storage device is used to store data. There are many different kinds of storage mediums available for computers:
 
 \begin{itemize}
-    \item \textbf{Magnetic Tape}
-    \item \textbf{Optical Disks}
-    \item \textbf{Hard Disk Drives (HDD)}
-    \item \textbf{Solid-State Drives (SSD)}
+    \item \textbf{Magnetic Tape} - a thin strip of plastic coated with a magnetizable material.
+    \item \textbf{Optical Disks} - reflective disk read using a laser.
+    \item \textbf{Hard Disk Drives (HDD)} - rotating "platter" disk with a magnetic head and seek arm.
+    \item \textbf{Solid-State Drives (SSD)} - non-volatile flash memory.
 \end{itemize}
 
 \subsubsection{Bus (Communication)}
@@ -190,15 +190,61 @@ The CPU in the MARIE reference architecture (an example of \textbf{Von Neumann a
 
 
 \section{Machine Code}
-\subsection{Instruction Set Architecture(ISA)}
 
-An Instruction Set Architecture is an agreed-upon interface between \em{software} running on a machine and the \em{hardware} that executes it.
+Machine code is the lowest-level computer language, consisting of binary or hexadecimal instructions.
 
+\subsection{Instruction Set Architecture (ISA)}
 
-\subsubsection{Complex Instruction Set Architecture (CISC)}
-\subsubsection{Reduced Instruction Set Architecture (RISC)}
+An Instruction Set Architecture (ISA) is an agreed-upon interface between \textit{software} running on a machine and the \textit{hardware} that executes it.
+
+The ISA provides the specification for:
+
+\begin{itemize}
+    \item Word size (e.g., 32-bit or 64-bit)
+    \item Instruction opcodes and max operands
+    \item Instruction length
+    \item Addressing modes (e.g., byte-addressable or word-addressable)
+    \item Supported data types and operations (e.g., IEEE 754 floating point arithmetic)
+    \item Endianness (e.g. Big Endian or Little Endian)
+    \item Branch evaluation
+\end{itemize}
+
+\subsection{Instruction Formats}
+
+\begin{itemize}
+    \item \textbf{Stack Architecture} - instructions and operands are popped off the stack. A stack architecture uses \textbf{postfix notation} (also known as Polish notation) to express operations.
+    \item \textbf{Accumulator Architecture} - one operand of a binary operation is stored in the accumulator, one in memory.
+    \item \textbf{General Purpose Register (GPR) Architecture} - operands are stored in general-purpose registers. Reduces memory bus traffic compared to Accumulator architecture.
+\end{itemize}
+
+\subsubsection{Reduced Instruction Set Architecture (RISC) vs. Complex Instruction Set Architecture (CISC)}
+
+Modern ISAs often incorporate a mix of RISC and CISC design principles, so the line between these designs is starting to blur.
+
+\begin{table}[h]
+    \abovedisplayskip=-5pt
+    \belowdisplayskip=-5pt
+    \centering
+    \begin{tabularx}{\textwidth}{| X | X |}
+        \hline
+        \textbf{RISC}                                       & \textbf{CISC}                                          \\ \hline
+        Multiple register sets                              & Single register sets                                   \\ \hline
+        Many registers (256+)                               & Few registers (6-16)                                   \\ \hline
+        Parameter passing via on-chip register windows      & Parameter passing via off-chip memory (less efficient) \\ \hline
+        Single-cycle instructions                           & Multi-cycle instructions                               \\ \hline
+        Hardwired control                                   & Microcode Control                                      \\ \hline
+        Highly pipelined                                    & Less Pipelined                                         \\ \hline
+        Few Simple instructions                             & Many Complex instructions                              \\ \hline
+        Fixed-length instructions                           & Variable-length instructions                           \\ \hline
+        Complexity in compiler                              & Complexity in microcode                                \\ \hline
+        Memory access is limited to load/store instructions & Many instructions can access memory                    \\ \hline
+    \end{tabularx}
+    \caption{Comparison of RISC and CISC attributes.}
+\end{table}
 
 \section{Operating System}
+
+An operating system (OS) is the intermediary system software between users and the computer hardware. The OS facilitates the execution of application programs and efficiently manages hardware resources like CPU, memory, and I/O systems.
 
 \subsection{Firmware Interfaces}
 
